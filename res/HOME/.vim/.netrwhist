@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/private/etc/supervisor.d'
+let g:netrw_dirhist_2='/Users/rminge/Sites/good_myon/public/js/reader/4/lib/.git'
+let g:netrw_dirhist_3='/Users/rminge/Sites/myon/.git'
+let g:netrw_dirhist_4='/Users/rminge/.ssh'
+let g:netrw_dirhist_5='/Users/rminge'
+let g:netrw_dirhist_6='/private/etc/apache2/other'
+let g:netrw_dirhist_7='/Users/rminge/.ssh'

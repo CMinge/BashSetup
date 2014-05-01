@@ -1,0 +1,9 @@
+#!/bin/bash
+
+PWD=`pwd`;
+RES="$PWD/res";
+HOME_SRC="$RES/HOME";
+
+HOME_TARGET="$HOME/mockhome";
+
+rsync -r "$HOME_SRC/" "$HOME_TARGET";
