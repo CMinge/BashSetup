@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+## Copy resources over
+
 PWD=`pwd`;
 RES="$PWD/res";
 HOME_SRC="$RES/HOME";
@@ -7,3 +10,17 @@ HOME_SRC="$RES/HOME";
 HOME_TARGET="$HOME/mockhome";
 
 rsync -r "$HOME_SRC/" "$HOME_TARGET";
+
+
+## Check for scripts you may want
+declare -a scripts=("git" "php" "compass");
+for i in "${scripts[@]}"
+do
+	which "$i" &> /dev/null;
+	val=$?;
+	if [ $val -ne 0 ]; then
+		echo -e "⚠️ You're missing \033[34m$i\033[0m, maybe you want that.";
+	fi;
+done
+
+echo "🎈 DONE!";
