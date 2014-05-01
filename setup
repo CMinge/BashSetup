@@ -7,13 +7,22 @@ PWD=`pwd`;
 RES="$PWD/res";
 HOME_SRC="$RES/HOME";
 
-HOME_TARGET="$HOME/mockhome";
+HOME_TARGET="$HOME";
+
+if [ $# -gt 0 ]; then
+	HOME_TARGET=$1;
+fi;
+
+if [ ! -d $HOME_TARGET ]; then
+	echo "🚨  Invalid home directory \"$HOME_TARGET\"";
+	exit 1;
+fi;
 
 rsync -r "$HOME_SRC/" "$HOME_TARGET";
 
 
 ## Check for scripts you may want
-declare -a scripts=("git" "php" "compass");
+declare -a scripts=("git" "php" "compass" "go");
 for i in "${scripts[@]}"
 do
 	which "$i" &> /dev/null;
