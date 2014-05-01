@@ -6,10 +6,11 @@ PATH=$GOPATH/bin:$PATH
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
 PATH=$PATH:$HOME/pear/bin
 
-
-SITE_DIR="$HOME/Sites/";
-alias s="cd $SITE_DIR; cd $1"
-alias ls="ls -G --color"
+if ls --color -d . >/dev/null 2>&1; then
+	alias ls="ls --color";
+elif ls -G -d . >/dev/null 2>&1; then
+	alias ls="ls -G";
+fi
 
 function PSONE
 {
