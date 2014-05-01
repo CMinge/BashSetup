@@ -9,7 +9,7 @@ PATH=$PATH:$HOME/pear/bin
 
 SITE_DIR="$HOME/Sites/";
 alias s="cd $SITE_DIR; cd $1"
-alias ls="ls -G"
+alias ls="ls -G --color"
 
 function PSONE
 {
