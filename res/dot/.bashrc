@@ -14,26 +14,50 @@ fi
 
 function PSONE
 {
+	lastReturn=$?;
+
+	if [ $lastReturn -eq 0 ]; then
+		lastReturn="🚀"
+	else
+		lastReturn="💣";
+	fi;
+
+
+	lastReturn="$lastReturn$s $e";
+
 	me=`whoami`;
 	host=`hostname -s`;
 	branchstr="";
 	timestr=`date +"%T"`;
 	here=`pwd`;
-	#where="~${here#$HOME}"
-	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="\033[36m~\033[0m${here#$HOME}"
+
+	s="\001";
+	e="\002";
+
+	#clear
+	c="$s\033[0m$e";
+	red="$s\033[31m$e";
+	cya="$s\033[34m$e";
+	blu="$s\033[36m$e";
+	yel="$s\033[33m$e";
+	gre="$s\033[32m$e";
+
+
+
+	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="$blu~$c${here#$HOME}"
 	if [ -d ".git" ]; then
 		branch=`git rev-parse --abbrev-ref HEAD`;
 		if [ -n "$(git status --porcelain)" ]; then
-			branch="\033[31m${branch}\033[0m";
+			branch="$red${branch}";
 		else
-			branch="\033[32m${branch}\033[0m";
+			branch="$gre${branch}";
 		fi;
-		branchstr=" [🌿  $branch]";
+		branchstr=" [🌿$s $e$branch]";
 	fi;
 
-	echo -e "\033[31m$me\033[0m@\033[34m$host\033[0m:$here$branchstr \033[33m$timestr\033[0m » ";
+	#echo "HERE: ";
 
-
+	echo -e "$c$lastReturn$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
 }
 
 PS1='$(PSONE)';
