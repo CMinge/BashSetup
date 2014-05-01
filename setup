@@ -82,6 +82,8 @@ if [[ $response = "Y" ]] || [[ $response = "y" ]]; then
 	fi;
 fi;
 
+source "$HOME_TARGET/.bashrc";
+
 
 
 
