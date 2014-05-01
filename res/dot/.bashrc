@@ -45,17 +45,17 @@ function PSONE
 
 
 	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="$blu~$c${here#$HOME}"
-	if [ -d ".git" ]; then
-		branch=`git rev-parse --abbrev-ref HEAD`;
-		if [ -n "$(git status --porcelain)" ]; then
-			branch="$red${branch}";
+	#if [ -d ".git" ]; then
+		branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`;
+		status=$?;
+		if [ $status -ne 0 ]; then
+			branchstr="$red ‼️$s $e";
+		elif [ -n "$(git status --porcelain)" ]; then
+			branchstr="$red 🌿$s $e ${branch}";
 		else
-			branch="$gre${branch}";
+			branchstr="$gre 🌿$s $e ${branch}";
 		fi;
-		branchstr=" [🌿$s $e$branch]";
-	fi;
-
-	#echo "HERE: ";
+	#fi;
 
 	echo -e "$c$lastReturn$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
 }
