@@ -1,0 +1,37 @@
+
+# Tower Merge Files
+
+*.orig
+
+
+# OS Files
+
+Thumbs.db
+.DS_Store
+._*
+
+
+# Compass Garbage
+
+.sass-cache/
+*.BASE.*.css
+*.LOCAL.*.css
+*.REMOTE.*.css
+*.BACKUP.*.css
+
+
+# Project Files
+
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.esproj
+.komodotools/
+.project
+.settings
+.buildpath
+.idea/
+/node_modules
+/gource_grav.pl
+
+/clover.xml

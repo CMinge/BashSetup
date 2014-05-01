@@ -5,7 +5,7 @@
 
 PWD=`pwd`;
 RES="$PWD/res";
-HOME_SRC="$RES/HOME";
+DOT_SRC="$RES/dot";
 
 HOME_TARGET="$HOME";
 
@@ -18,8 +18,31 @@ if [ ! -d $HOME_TARGET ]; then
 	exit 1;
 fi;
 
-rsync -r "$HOME_SRC/" "$HOME_TARGET";
+BIN_TARGET="$HOME_TARGET/bin";
+if [ ! -d $BIN_TARGET ]; then
+	mkdir "$BIN_TARGET";
+fi;
 
+
+dotfiles=`ls -a $DOT_SRC | grep -v "^.\$" | grep -v "^..\$"`;
+for f in $dotfiles
+do
+	srcpath="${DOT_SRC}/$f";
+	targetpath="${HOME_TARGET}/$f";
+
+	if [ -e "$targetpath" ]; then
+		printf "\033[34m$f\033[0m is already installed. Delete? [y|N] ";
+		read response;
+		if [[ $response = "Y" ]] || [[ $response = "y" ]]; then
+			rm -r $targetpath;
+			ln -s "$srcpath" "$targetpath";
+		fi;
+	else
+		ln -s "$path" "$HOME_TARGET"
+	fi;
+
+done;
+echo "";
 
 ## Check for scripts you may want
 declare -a scripts=("git" "php" "compass" "go");
@@ -31,5 +54,36 @@ do
 		echo -e "⚠️ You're missing \033[34m$i\033[0m, maybe you want that.";
 	fi;
 done
+
+printf "Install PHP tools? [y|N] ";
+read response;
+if [[ $response = "Y" ]] || [[ $response = "y" ]]; then
+	which "php" &> /dev/null;
+	if [ $? -ne 0 ]; then
+		echo "No php, cannot install stuff for you.";
+	else
+		## Install composer
+		echo -e "Installing \033[34mcomposer\033[0m";
+
+		curl -sS https://getcomposer.org/installer | php -- --install-dir="$BIN_TARGET" &> /dev/null;
+		chmod +x "$BIN_TARGET/composer.phar" &> /dev/null;
+		mv "$BIN_TARGET/composer.phar" "$BIN_TARGET/composer" &> /dev/null;
+
+		echo -e "Installing \033[34mphpunit\033[0m";
+
+		curl https://phar.phpunit.de/phpunit.phar 1> "$BIN_TARGET/phpunit" ;
+		chmod +x "$BIN_TARGET/phpunit" &> /dev/null;
+
+		echo -e "Installing \033[34mphpdoc\033[0m";
+
+		curl http://phpdoc.org/phpDocumentor.phar 1> "$BIN_TARGET/phpdoc" ;
+		chmod +x "$BIN_TARGET/phpdoc" &> /dev/null;
+
+	fi;
+fi;
+
+
+
+
 
 echo "🎈 DONE!";
