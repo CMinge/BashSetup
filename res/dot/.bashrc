@@ -48,12 +48,14 @@ function _bashproject_find
 {
 	projectFile="$HOME/.bash_projecthistory";
 	word=${COMP_WORDS[COMP_CWORD]};
-	lines=`cat "$projectFile" | grep "^$word" | sed 's/^.*\|/''/g' 2> /dev/null`;
-	i=0;
-	for line in $lines; do
-		COMPREPLY[$i]=$line;
-		i=`expr $i + 1`;
-	done;
+	if [[ ! -z $word ]]; then
+		lines=`cat "$projectFile" | grep "^$word" | sed 's/^.*\|/''/g' 2> /dev/null`;
+		i=0;
+		for line in $lines; do
+			COMPREPLY[$i]=$line;
+			i=`expr $i + 1`;
+		done;
+	fi;
 	return 0;
 }
 
