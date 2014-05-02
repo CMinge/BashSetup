@@ -70,7 +70,7 @@ function PSONE
 
 
 	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="$blu~$c${here#$HOME}"
-	#if [ -d ".git" ]; then
+	if [ -d ".git" ]; then
 		branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`;
 		status=$?;
 		if [ $status -ne 0 ]; then
@@ -80,7 +80,7 @@ function PSONE
 		else
 			branchstr="$gre 🌿$s $e ${branch}";
 		fi;
-	#fi;
+	fi;
 
 	echo -e "$nl$c$lastReturn$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
 }
