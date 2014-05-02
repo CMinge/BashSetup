@@ -12,7 +12,7 @@ elif ls -G -d . >/dev/null 2>&1; then
 	alias ls="ls -G";
 fi
 
-function __GETCOL
+function _get_col
 {
 	# based on a script from http://invisible-island.net/xterm/xterm.faq.html
 	exec < /dev/tty
@@ -30,6 +30,37 @@ function __GETCOL
 	echo $col;
 }
 
+function _register_bashproject
+{
+	proj=$1;
+	projectFile="$HOME/.bash_projecthistory";
+	projname="${proj##*/}";
+	projline="$projname|$proj";
+
+	grep -Fxq "$projline" "$projectFile" &> /dev/null;
+	status=$?;
+	if [ $status -eq 1 ]; then
+		echo "$projline" >> "$HOME/.bash_projecthistory";
+	fi;
+}
+
+function _bashproject_find
+{
+	projectFile="$HOME/.bash_projecthistory";
+	word=${COMP_WORDS[COMP_CWORD]};
+	lines=`cat "$projectFile" | grep "^$word" | sed 's/^.*\|/''/g' 2> /dev/null`;
+	i=0;
+	for line in $lines; do
+		COMPREPLY[$i]=$line;
+		i=`expr $i + 1`;
+	done;
+	return 0;
+}
+
+complete -d -X '.[^./]*' -F _bashproject_find cd
+complete -d -X '.[^./]*' -F _bashproject_find ls
+complete -d -X '.[^./]*' -F _bashproject_find subl
+
 function PSONE
 {
 	s="\001";
@@ -45,7 +76,7 @@ function PSONE
 
 
 	## If no newline, add one.
-	col=`__GETCOL`;
+	col=`_get_col`;
 	nl="";
 	if [ $col -ne 0 ]; then
 		nl="$s\n$e";
@@ -71,6 +102,7 @@ function PSONE
 
 	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="$blu~$c${here#$HOME}"
 	if [ -d ".git" ]; then
+		_register_bashproject `pwd`;
 		branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`;
 		status=$?;
 		if [ $status -ne 0 ]; then
