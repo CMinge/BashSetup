@@ -23,7 +23,6 @@ if [ ! -d $BIN_TARGET ]; then
 	mkdir "$BIN_TARGET";
 fi;
 
-
 dotfiles=`ls -a $DOT_SRC | grep -v "^.\$" | grep -v "^..\$"`;
 for f in $dotfiles
 do
@@ -45,7 +44,7 @@ done;
 echo "";
 
 if [ ! -e "$HOME_TARGET/.bash_projecthistory" ]; then
-	touch "$HOME_TARGET/.bash_projecthistory" ];
+	touch "$HOME_TARGET/.bash_projecthistory" ;
 fi
 
 ## Check for scripts you may want

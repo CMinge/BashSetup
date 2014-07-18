@@ -4,5 +4,5 @@ syntax on
 set ruler
 
 
-colorscheme wombat
+colorscheme ir_black
 set mouse=a
