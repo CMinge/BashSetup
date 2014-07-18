@@ -95,7 +95,7 @@ function PSONE
 	me=`whoami`;
 	host=`hostname -s`;
 	branchstr="";
-	timestr=`date +"%T"`;
+	timestr=`date +"%l:%M%P" | tr -d ' ' | tr '[:upper:]' '[:lower:]'`;
 	here=`pwd`;
 
 
@@ -105,12 +105,13 @@ function PSONE
 		_register_bashproject $gitdir;
 		branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`;
 		status=$?;
+		branch=`echo "$branch" | sed 's/^\(.\).*\//\1\//'`;
 		if [ $status -ne 0 ]; then
-			branchstr="$red ‼️$s $e";
+			branchstr="$red ‼️ ";
 		elif [ -n "$(git status --porcelain)" ]; then
-			branchstr="$red 🌿  ${branch}";
+			branchstr="$red 🌿 ${branch}";
 		else
-			branchstr="$gre 🌿  ${branch}";
+			branchstr="$gre 🌿 ${branch}";
 		fi;
 	fi;
 
