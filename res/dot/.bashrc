@@ -87,13 +87,10 @@ function PSONE
 	lastReturn=$?;
 
 	if [ $lastReturn -eq 0 ]; then
-		lastReturn="🚀"
+		lastReturn="🚀 "
 	else
-		lastReturn="💣";
+		lastReturn="💣 ";
 	fi;
-
-
-	lastReturn="$lastReturn$s $e";
 
 	me=`whoami`;
 	host=`hostname -s`;
@@ -111,9 +108,9 @@ function PSONE
 		if [ $status -ne 0 ]; then
 			branchstr="$red ‼️$s $e";
 		elif [ -n "$(git status --porcelain)" ]; then
-			branchstr="$red 🌿$s $e ${branch}";
+			branchstr="$red 🌿  ${branch}";
 		else
-			branchstr="$gre 🌿$s $e ${branch}";
+			branchstr="$gre 🌿  ${branch}";
 		fi;
 	fi;
 
