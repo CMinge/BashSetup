@@ -30,39 +30,6 @@ function _get_col
 	echo $col;
 }
 
-function _register_bashproject
-{
-	proj=$1;
-	projectFile="$HOME/.bash_projecthistory";
-	projname="${proj##*/}";
-	projline="$projname|$proj";
-
-	grep -Fxq "$projline" "$projectFile" &> /dev/null;
-	status=$?;
-	if [ $status -eq 1 ]; then
-		echo "$projline" >> "$HOME/.bash_projecthistory";
-	fi;
-}
-
-function _bashproject_find
-{
-	projectFile="$HOME/.bash_projecthistory";
-	word=${COMP_WORDS[COMP_CWORD]};
-	if [[ ! -z $word ]]; then
-		lines=`cat "$projectFile" | grep "^$word" | sed 's/^.*\|/''/g' 2> /dev/null`;
-		i=0;
-		for line in $lines; do
-			COMPREPLY[$i]=$line;
-			i=`expr $i + 1`;
-		done;
-	fi;
-	return 0;
-}
-
-complete -d -X '.[^./]*' -F _bashproject_find cd
-complete -d -X '.[^./]*' -F _bashproject_find ls
-complete -d -X '.[^./]*' -F _bashproject_find subl
-
 function PSONE
 {
 	s="\001";

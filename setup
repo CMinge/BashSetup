@@ -43,9 +43,6 @@ do
 done;
 echo "";
 
-if [ ! -e "$HOME_TARGET/.bash_projecthistory" ]; then
-	touch "$HOME_TARGET/.bash_projecthistory" ;
-fi
 
 ## Check for scripts you may want
 declare -a scripts=("git" "php" "compass" "go");
