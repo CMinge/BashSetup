@@ -37,7 +37,7 @@ do
 			ln -s "$srcpath" "$targetpath";
 		fi;
 	else
-		ln -s "$path" "$HOME_TARGET"
+		ln -s "$srcpath" "$targetpath";
 	fi;
 
 done;
