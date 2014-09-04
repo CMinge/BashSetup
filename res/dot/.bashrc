@@ -1,5 +1,8 @@
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
 export GOPATH=$HOME/code/go
 PATH=$PATH:$HOME/bin
 PATH=$GOPATH/bin:$PATH
