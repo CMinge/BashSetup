@@ -72,7 +72,6 @@ function PSONE
 	[[ "$here" =~ ^"$HOME"(/|$) ]] && here="$blu~$c${here#$HOME}"
 	gitdir=`git rev-parse --show-toplevel 2> /dev/null`;
 	if [ ! -z "$gitdir" ]; then
-		_register_bashproject $gitdir;
 		branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`;
 		status=$?;
 		branch=`echo "$branch" | sed 's/^\(.\).*\//\1\//'`;
