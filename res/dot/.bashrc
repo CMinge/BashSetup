@@ -54,14 +54,6 @@ function PSONE
 		nl="$s\n$e";
 	fi;
 
-	lastReturn=$?;
-
-	if [ $lastReturn -eq 0 ]; then
-		lastReturn="🚀 "
-	else
-		lastReturn="💣 ";
-	fi;
-
 	me=`whoami`;
 	host=`hostname -s`;
 	branchstr="";
@@ -84,7 +76,7 @@ function PSONE
 		fi;
 	fi;
 
-	echo -e "$nl$c$lastReturn$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
+	echo -e "$nl$c$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
 }
 
 PS1='$(PSONE)';
