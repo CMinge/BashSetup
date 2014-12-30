@@ -55,7 +55,6 @@ function PSONE
 	fi;
 
 	me=`whoami`;
-	host=`hostname -s`;
 	branchstr="";
 	timestr=`date +"%l:%M%P" | tr -d ' ' | tr '[:upper:]' '[:lower:]'`;
 	here=`pwd`;
@@ -76,7 +75,13 @@ function PSONE
 		fi;
 	fi;
 
-	echo -e "$nl$c$red$me$c@$cya$host$c:$here$branchstr$yel ${timestr}$c » ";
+	atString="";
+	if [ ! -z $SSH_TTY ]; then
+		host=`hostname -s`;
+		atString="$c@$cya$host";
+	fi;
+
+	echo -e "$red$me$atString$c:$here$branchstr$yel ${timestr}$c » ";
 }
 
 PS1='$(PSONE)';
